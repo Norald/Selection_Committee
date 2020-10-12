@@ -1,9 +1,9 @@
-package db;
+package beans;
 
 public class User {
     private int id;
     private String email;
-    private int idn;
+    private long idn;
 
     //check if user blocked
     private boolean blocked;
@@ -27,11 +27,11 @@ public class User {
         this.email = email;
     }
 
-    public int getIdn() {
+    public long getIdn() {
         return idn;
     }
 
-    public void setIdn(int idn) {
+    public void setIdn(long idn) {
         this.idn = idn;
     }
 
@@ -57,5 +57,17 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", idn=" + idn +
+                ", blocked=" + blocked +
+                ", user_role_id=" + user_role_id +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

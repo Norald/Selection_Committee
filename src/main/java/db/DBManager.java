@@ -77,26 +77,4 @@ public class DBManager {
             ex.printStackTrace();
         }
     }
-
-/**************** THIS METHOD IS NOT USED IN THE PROJECT *******/
-    /**
-     * Returns a DB connection. This method is just for a example how to use the
-     * DriverManager to obtain a DB connection. It does not use a pool
-     * connections and not used in this project. It is preferable to use
-     * {@link #getConnection()} method instead.
-     *
-     * @return A DB connection.
-     */
-    public Connection getConnectionWithDriverManager() throws SQLException {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/iinspection_board?useUnicode=true&serverTimezone=UTC","root","root");
-        connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-        connection.setAutoCommit(false);
-        return connection;
-    }
 }
