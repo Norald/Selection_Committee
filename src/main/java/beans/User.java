@@ -1,14 +1,38 @@
 package beans;
 
+/**
+ * Class that describes user.
+ * @author Vladislav Prokopenko.
+ */
 public class User {
+    /**
+     * ID of user;
+     */
     private int id;
+
+    /**
+     * EMAIL of user;
+     */
     private String email;
+
+    /**
+     * Identification number of user;
+     */
     private long idn;
 
-    //check if user blocked
+    /**
+     * Check if user blocked;
+     */
     private boolean blocked;
 
+    /**
+     * User role id;
+     */
     private int user_role_id;
+
+    /**
+     * User password;
+     */
     private String password;
 
     public int getId() {
@@ -67,7 +91,7 @@ public class User {
                 ", idn=" + idn +
                 ", blocked=" + blocked +
                 ", user_role_id=" + user_role_id +
-                ", password='" + password + '\'' +
+                ", password='" + "**********" + '\'' +
                 '}';
     }
 }

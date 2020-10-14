@@ -2,6 +2,8 @@ package servlet.admin;
 
 import beans.Faculty;
 import db.dao.FacultyDao;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,13 +15,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Show all faculties to generate statement.
+ * @author Vladislav Prokopenko
+ */
 @WebServlet(name = "ListFacultyStatementServlet", urlPatterns = "/app/admin/generation_statements")
 public class ListFacultyStatementServlet extends HttpServlet {
+    private static final Logger LOG = LogManager.getLogger(ListFacultyStatementServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String locale = (String) request.getSession().getAttribute("language");
         //getting locale for errors
         ResourceBundle rb = ResourceBundle.getBundle("resource", new Locale(locale));
 
+        //realisation of pagination
         int pageFaculty;
         int facultyCountOnPage = 5;
         int startValue;
@@ -38,14 +47,13 @@ public class ListFacultyStatementServlet extends HttpServlet {
         if (nOfPages % facultyCountOnPage > 0) {
             nOfPages++;
         }
-        if(rows==facultyCountOnPage){
-            nOfPages=0;
+        if(rows%facultyCountOnPage==0){
+            nOfPages--;
         }
 
         List<Faculty> faculties = null;
         faculties = facultyDao.getFacultiesWithLimitOrderAZ(startValue , facultyCountOnPage, locale);
 
-        //System.out.println(Arrays.asList(faculties));
         if(!faculties.isEmpty()) {
             request.setAttribute("facultiesList", faculties);
             request.setAttribute("noOfPages", nOfPages);
@@ -53,6 +61,7 @@ public class ListFacultyStatementServlet extends HttpServlet {
             request.getRequestDispatcher("/app/admin/faculties_list_statements.jsp")
                     .forward(request, response);
         }else{
+            LOG.warn("Cant get faculties");
             request.setAttribute("error", rb.getString("error.cant.get.faculties"));
             request.getRequestDispatcher("/error.jsp")
                     .forward(request, response);

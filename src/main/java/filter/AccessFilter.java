@@ -1,13 +1,23 @@
 package filter;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import pdf.CreateStatement;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Access filter. Check if user need authorisation. Opened only for start and registration pages
+ * @author Vladislav Prokopenko
+ */
 @WebFilter(filterName = "AccessFilter", urlPatterns = "/app/*")
 public class AccessFilter implements Filter {
+    private static final Logger LOG = LogManager.getLogger(AccessFilter.class.getName());
+
     public void destroy() {
     }
 
@@ -15,6 +25,7 @@ public class AccessFilter implements Filter {
         if (accessAllowed(req)) {
             chain.doFilter(req, resp);
         } else{
+            LOG.warn("Need authorization");
             req.setAttribute("error", "You need authorization");
             req.getRequestDispatcher("/error.jsp")
                     .forward(req, resp);
@@ -25,6 +36,11 @@ public class AccessFilter implements Filter {
 
     }
 
+    /**
+     * Check if access allowed
+     * @param request
+     * @return true or false
+     */
     private boolean accessAllowed(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
         String commandName = (String) session.getAttribute("auth");

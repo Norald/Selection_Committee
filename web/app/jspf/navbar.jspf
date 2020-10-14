@@ -153,6 +153,9 @@
                 <a class="nav-link" href="/app/marks"><fmt:message key="home.button.view.marks" /></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/app/statements"><fmt:message key="home.statements" /></a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/app/personalInfo"><fmt:message key="home.button.personal.info" /></a>
             </li>
             <c:if test="${sessionScope.get(\"role\")== 'ADMIN'}">

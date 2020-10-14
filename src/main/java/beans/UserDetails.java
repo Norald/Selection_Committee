@@ -1,14 +1,54 @@
 package beans;
 
+/**
+ * Class that describes user details.
+ * Like name, surname etc.
+ * @author Vladislav Prokopenko.
+ */
 public class UserDetails {
+    /**
+     * User ID
+     */
     private int userId;
+
+    /**
+     * User Name
+     */
     private String name;
+
+    /**
+     * User Surname
+     */
     private String surname;
+
+    /**
+     * User patronymic
+     */
     private String patronymic;
+
+    /**
+     * User city
+     */
     private String city;
+
+    /**
+     * User region
+     */
     private String region;
+
+    /**
+     * User school name
+     */
     private String school_name;
+
+    /**
+     * User documents url
+     */
     private String document_url;
+
+    /**
+     * User certificate point
+     */
     private int average_certificate;
 
     public int getUserId() {
@@ -81,5 +121,20 @@ public class UserDetails {
 
     public void setAverage_certificate(int average_certificate) {
         this.average_certificate = average_certificate;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDetails{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                ", school_name='" + school_name + '\'' +
+                ", document_url='" + document_url + '\'' +
+                ", average_certificate=" + average_certificate +
+                '}';
     }
 }

@@ -1,5 +1,10 @@
 package beans;
 
+/**
+ * Enum that describes user role.
+ * Can be USER or ADMIN.
+ * @author Vladislav Prokopenko.
+ */
 public enum UserRole {
     USER, ADMIN;
 

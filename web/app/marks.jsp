@@ -16,41 +16,69 @@
 <head>
     <title>Title</title>
     <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
+    <link rel="stylesheet" href="/app/css/user_admissions.css">
+
 
 </head>
 <body>
 <%@include file="/app/jspf/navbar.jspf" %>
 
 <c:if test="${empty requestScope.get(\"results\")}">
-    <h3><fmt:message key="marks.have.no.marks" /></h3>
+    <h3 class="text-center text-info"><fmt:message key="marks.have.no.marks" /></h3>
 </c:if>
 <c:if test="${not empty requestScope.get(\"results\")}">
- <c:forEach items="${requestScope.get(\"results\")}" var="result">
-    <tr>
-        <td>${result.subject_exam.name}</td>
-        <td>${result.result}</td>
-        <td>${result.dateOfExam}</td>
-        <li><form method="post" action="<c:url value="/app/mark_del?subjectid=${result.subject_exam.id}"/>"><button type="submit"> <fmt:message key="marks.button.delete" /> </button></form></li>
 
-    </tr>
-    <br>
- </c:forEach>
+
+    <h3 class="text-center text-info"><fmt:message key="home.your.marks" /></h3>
+
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <c:forEach items="${requestScope.get(\"results\")}" var="result">
+                    <tr>
+                        <td>${result.subject_exam.name}</td>
+                        <td>${result.result}</td>
+                        <td>${result.dateOfExam}</td>
+                        <td class="text-center">  <form method="post" action="/app/mark_del?subjectid=${result.subject_exam.id}"><button type="submit" name="faculty_name" value="${admission.key}" class="btn btn-info btn-xs"> <fmt:message key="marks.button.delete" /></button></form>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
 </c:if>
 
 
-<br>
+<h3 class="text-left text-info"><fmt:message key="adding.mark" /></h3>
 
+    <form class="form-inline" action="/app/add_mark" method="post" name="add_mark_form">
+        <%--<select name="marksSelect">--%>
+            <%--<c:forEach items="${requestScope.get(\"exams\")}"  var="exam">--%>
+        <%--<option value="${exam.id}">${exam.name}</option>--%>
+            <%--</c:forEach>--%>
+        <%--</select>--%>
 
+                <div class="form-group mb-2">
+                    <select class="form-control" name="marksSelect">
+                    <c:forEach items="${requestScope.get(\"exams\")}"  var="exam">
+                        <option value="${exam.id}">${exam.name}</option>
+                    </c:forEach>
+                    </select>
+                </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="number" placeholder="<fmt:message key="marks.enter.your.mark"/>" name="mark" required="required" pattern="^[0-9]{3}"></p>
+            </div>
+            <button type="submit" class="btn btn-info btn-xs"><fmt:message key="marks.button.send" /></button>
+    </form>
 
-<form action="/app/add_mark" method="post" name="add_mark_form">
-    <select name="marksSelect">
-        <c:forEach items="${requestScope.get(\"exams\")}"  var="exam">
-            <option value="${exam.id}">${exam.name}</option>
-        </c:forEach>
-    </select>
-    <p> <input type="number" name="mark" required="required" pattern="[0-9]{3}"></p>
-    <p><input type="submit" value="<fmt:message key="marks.button.send" />"></p>
-</form>
+<%--<form action="/app/add_mark" method="post" name="add_mark_form">--%>
+    <%--<select name="marksSelect">--%>
+        <%--<c:forEach items="${requestScope.get(\"exams\")}"  var="exam">--%>
+            <%--<option value="${exam.id}">${exam.name}</option>--%>
+        <%--</c:forEach>--%>
+    <%--</select>--%>
+    <%--<p> <input type="number" name="mark" required="required" pattern="[0-9]{3}"></p>--%>
+    <%--<p><input type="submit" value="<fmt:message key="marks.button.send" />"></p>--%>
+<%--</form>--%>
 
 
 </body>

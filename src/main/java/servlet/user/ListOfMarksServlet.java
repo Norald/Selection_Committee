@@ -17,6 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Realisation of showing user marks.
+ * @author Vladislav Prokopenko.
+ */
 @WebServlet(name = "ListOfMarksServlet", urlPatterns = "/app/marks")
 public class ListOfMarksServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,10 +30,13 @@ public class ListOfMarksServlet extends HttpServlet {
 
         UserDao userDao = new UserDao();
         FacultyDao facultyDao = new FacultyDao();
+        //getting user exams
         List<UserResult> results = userDao.findUserResult((String) request.getSession().getAttribute("email"), locale);
+        //getting all exams
         List<SubjectExam> exams = facultyDao.getAllSubjectExams(locale);
 
-        //удаляем выбор у пользователя, чтобы он не мог повторно выбрать такой же предмет, по которому уже вносил баллы
+
+        //we delete the user's choice so that he cannot re-select the same subject for which he has already contributed points
         List<SubjectExam> usersExams = new ArrayList<SubjectExam>();
         for (int i = 0; i < results. size(); i++) {
             usersExams.add(results.get(i).getSubject_exam());

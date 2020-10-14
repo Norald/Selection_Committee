@@ -3,11 +3,34 @@ package beans;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Class that describes admission to faculty;
+ * @author Vladislav Prokopenko;
+ */
 public class Admission {
+    /**
+     * ID of admission
+     */
     private int id;
+
+    /**
+     * ID of user
+     */
     private int user_id;
+
+    /**
+     * ID of faculty
+     */
     private int faculty_id;
+
+    /**
+     * Date of admission
+     */
     private Date date;
+
+    /**
+     * Is approved admission
+     */
     private boolean is_approved;
 
 
@@ -66,5 +89,16 @@ public class Admission {
     @Override
     public int hashCode() {
         return Objects.hash(id, user_id, faculty_id, date, is_approved);
+    }
+
+    @Override
+    public String toString() {
+        return "Admission{" +
+                "id=" + id +
+                ", user_id=" + user_id +
+                ", faculty_id=" + faculty_id +
+                ", date=" + date +
+                ", is_approved=" + is_approved +
+                '}';
     }
 }

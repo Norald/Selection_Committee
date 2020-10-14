@@ -2,6 +2,8 @@ package servlet;
 
 import beans.User;
 import db.dao.UserDao;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +15,15 @@ import java.io.PrintWriter;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Realisation of registration.
+ * @author Vladislav Prokopenko
+ */
 @WebServlet(name = "RegistrationServlet", urlPatterns = "/registration")
 public class RegistrationServlet extends HttpServlet {
+    private static final Logger LOG = LogManager.getLogger(RegistrationServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //todo СЕРВЛЕТИК ДЛЯ РЕГИСТРАЦИИ!
         String email = request.getParameter("email");
         String pass1 = request.getParameter("pass1");
         String pass2 = request.getParameter("pass2");
@@ -47,28 +54,34 @@ public class RegistrationServlet extends HttpServlet {
                 ukrainian_surname.isEmpty()||ukrainian_patronymic.isEmpty()|| ukrainian_city.isEmpty()||ukrainian_region.isEmpty()||
                 ukrainian_school_name.isEmpty()){
 
+            LOG.warn("Empty parameters in registration");
             request.setAttribute("error", rb.getString("error.registration.empty.parameters"));
             request.getRequestDispatcher("/error.jsp")
                     .forward(request, response);
         }else{
             UserDao userDao = new UserDao();
             User user = userDao.findUser(email);
+            //check if email already exists
             if(user!=null){
+                LOG.warn("Such email exists");
                 request.setAttribute("error", rb.getString("error.such.email.exists"));
                 request.getRequestDispatcher("/error.jsp")
                         .forward(request, response);
             }
             user = userDao.findUserByIdn(idn);
-
+            //check if identification number already exists
             if(user!=null){
+                LOG.warn("Such idn exists");
                 request.setAttribute("error", rb.getString("error.such.idn.exists"));
                 request.getRequestDispatcher("/error.jsp")
                         .forward(request, response);
-            }else if (!pass1.equals(pass2)){
+            }else if (!pass1.equals(pass2)){ //check if passwords match
+                LOG.warn("Passwords dont match");
                 request.setAttribute("error", rb.getString("error.passwords.should.match"));
                 request.getRequestDispatcher("/error.jsp")
                         .forward(request, response);
             } else {
+                LOG.info("Registration with email is successfull "+email);
                 userDao.addUser(email, Long.parseLong(idn), pass1);
                 user = userDao.findUser(email);
                 userDao.addUserDetails(user.getId(), english_name, english_surname, english_patronymic, english_city, english_region, english_school_name, Integer.parseInt(average_certificate_point), ukrainian_name, ukrainian_surname, ukrainian_patronymic, ukrainian_city, ukrainian_region, ukrainian_school_name);
@@ -84,6 +97,7 @@ public class RegistrationServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //PRG realisation
         response.sendRedirect("/registration.jsp");
 
     }

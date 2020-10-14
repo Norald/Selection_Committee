@@ -1,5 +1,9 @@
 package db;
 
+import filter.AdminAccessFilter;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -7,14 +11,16 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import org.apache.log4j.Logger;
 
 /**
  * Database manager class. Works with Mysql.
+ * Using data pool connection.
  * @author Prokopenko Vladislav
  * @since 25.09.2020
  */
 public class DBManager {
+    private static final Logger LOG = LogManager.getLogger(DBManager.class.getName());
+
     private static DBManager instance;
 
 
@@ -42,7 +48,7 @@ public class DBManager {
             DataSource ds = (DataSource)envContext.lookup("jdbc/board");
             con = ds.getConnection();
         } catch (NamingException ex) {
-           ex.printStackTrace();
+            LOG.error(ex.getMessage(),ex);
         }
         return con;
     }
@@ -59,7 +65,7 @@ public class DBManager {
             con.commit();
             con.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            LOG.error(ex.getMessage(),ex);
         }
     }
 
@@ -74,7 +80,7 @@ public class DBManager {
             con.rollback();
             con.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            LOG.error(ex.getMessage(),ex);
         }
     }
 }

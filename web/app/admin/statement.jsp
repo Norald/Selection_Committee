@@ -29,6 +29,14 @@
             <td>${result.certificatePoint}</td>
             <td>${result.is_approved}</td>
             <td>${result.totalResult}</td>
+            <c:if test="${result.is_approved eq 'false'}">
+                1234
+                <li><form method="post" action="/app/admin/confirm_user_for_statement?idAdmission=${result.id}&operation=approve"><button type="submit"> <fmt:message key="statement.report.user"/></button></form></li>
+            </c:if>
+            <c:if test="${result.is_approved eq 'true'}">
+                1234
+                <li><form method="post" action="/app/admin/confirm_user_for_statement?idAdmission=${result.id}&operation=disapprove"><button type="submit"> <fmt:message key="statement.unreport.user"/></button></form></li>
+            </c:if>
         </tr>
         <br>
     </c:forEach>
@@ -36,6 +44,13 @@
     <li>
         <form method="get" action="<c:url value="/app/admin/generate_early_statement"/>">
             <button type="submit"><fmt:message key="generate.statement"/></button>
+        </form>
+    </li>
+
+    <br>
+    <li>
+        <form method="get" action="<c:url value="/app/admin/generate_late_statement"/>">
+            <button type="submit"><fmt:message key="generate.statement"/>(FINAL)</button>
         </form>
     </li>
 </c:if>

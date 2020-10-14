@@ -2,6 +2,8 @@ package servlet.user;
 
 import beans.User;
 import db.dao.UserDao;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,16 +14,25 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Realisation of removing users marks.
+ * @author Vladislav Prokopenko
+ */
 @WebServlet(name = "RemoveUserMarkServlet" , urlPatterns = "/app/mark_del")
 public class RemoveUserMarkServlet extends HttpServlet {
+    private static final Logger LOG = LogManager.getLogger(RemoveUserMarkServlet.class.getName());
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userid = request.getParameter("subjectid");
         String locale = (String) request.getSession().getAttribute("language");
         //getting locale for errors
         Locale current = new Locale(locale);
+        //getting resource bundle
         ResourceBundle rb = ResourceBundle.getBundle("resource", current);
 
+        //check if empty
         if(userid.isEmpty()|| userid.equals("")){
+            LOG.warn("Wrong id or subject exam");
             request.setAttribute("error", rb.getString("error.wrong.id.or.subject.exam"));
             request.getRequestDispatcher("/error.jsp")
                     .forward(request, response);
@@ -32,7 +43,7 @@ public class RemoveUserMarkServlet extends HttpServlet {
 
             userDao.removeUserResults(user.getId(), Integer.parseInt(userid));
 
-            //Если юзер удаляет свою оценку, то все поданыне заявки на вступление удаляются
+            //if user delete his marks - all his admissions will be deleted
             userDao.removeUserAdmissions(user.getId());
             request.getSession().removeAttribute("admissions map");
             request.getRequestDispatcher("/app/marks").forward(request, response);
@@ -41,6 +52,7 @@ public class RemoveUserMarkServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("/app/marks.jsp");
+        //PRG realisation
+        response.sendRedirect("/app/marks");
     }
 }

@@ -7,6 +7,9 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import servlet.admin.AddFacultyDemendServlet;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,6 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Class for creating PDF statement.
+ * @author Vladislav Prokopenko
+ */
 public class CreateStatement {
     private String title;
     private String sunbject;
@@ -29,14 +36,22 @@ public class CreateStatement {
     private String totalResult;
     private String date;
 
+
+    /**
+     * Setting fonts that can work with cyrillic.
+     * Fonts contains in resources/fonts
+     */
     public String FONT_REGULAR = this.getClass().getClassLoader().getResource("fonts/HelveticaRegular.ttf").toString();
     public String FONT_BOLD = this.getClass().getClassLoader().getResource("fonts/HelveticaBold.ttf").toString();
 
-    //setting fonts
-//    private static Font TIME_ROMAN = new Font(Font.FontFamily.TIMES_ROMAN, 18,Font.BOLD);
-//    private static Font TIME_ROMAN_SMALL = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+
+    private static final Logger LOG = LogManager.getLogger(CreateStatement.class.getName());
 
 
+    /**
+     * Setting language of statement.
+     * @param locale - localisation: 'uk' or 'en'
+     */
     public void setLanguageToLocale(String locale){
         if(locale.equals("en")){
             title="PDF statement for faculty admission";
@@ -69,6 +84,15 @@ public class CreateStatement {
         }
     }
 
+
+    /**
+     * Creating PDF document
+     * @param file name and path of file
+     * @param faculty faculty
+     * @param results list of users results
+     * @param locale locale
+     * @return document
+     */
     public Document createPDF(String file, Faculty faculty, ArrayList<UserFinalStatementResult> results, String locale) {
 
         setLanguageToLocale(locale);
@@ -92,15 +116,20 @@ public class CreateStatement {
 
         } catch (FileNotFoundException e) {
 
-            e.printStackTrace();
+
+            LOG.error(e.getMessage(),e);
         } catch (DocumentException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(),e);
         }
         return document;
 
     }
 
 
+    /**
+     * Adding metadata
+     * @param document document
+     */
     private void addMetaData(Document document) {
         document.addTitle(title);
         document.addSubject(sunbject);
@@ -108,6 +137,13 @@ public class CreateStatement {
         document.addCreator(creator);
     }
 
+    /**
+     * Adding tittle page to document.
+     * @param document document
+     * @param faculty faculty
+     * @param font font for document
+     * @throws DocumentException
+     */
     private void addTitlePage(Document document, Faculty faculty, Font font)
             throws DocumentException {
 
@@ -127,12 +163,25 @@ public class CreateStatement {
         document.add(preface);
     }
 
+    /**
+     * Creating empty line in document
+     * @param paragraph
+     * @param number
+     */
     private void creteEmptyLine(Paragraph paragraph, int number) {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
     }
 
+    /**
+     * Creating table in document
+     * @param document
+     * @param results
+     * @param faculty
+     * @param font font for table
+     * @throws DocumentException
+     */
     private void createTable(Document document, ArrayList<UserFinalStatementResult> results, Faculty faculty, Font font) throws DocumentException {
         Paragraph paragraph = new Paragraph();
         creteEmptyLine(paragraph, 2);
@@ -165,6 +214,7 @@ public class CreateStatement {
         table.addCell(c1);
         table.setHeaderRows(1);
 
+        //showing only total amount of faculty places
         if(results.size()<=faculty.getTotalAmount()){
             for (int i = 0; i < results.size(); i++) {
                 table.setWidthPercentage(100);

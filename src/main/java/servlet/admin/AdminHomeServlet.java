@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Redirect to admin home page servlet
+ * @author Vladislav Prokopenko
+ */
 @WebServlet(name = "AdminHomeServlet", urlPatterns = "/app/admin/home")
 public class AdminHomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -15,6 +19,7 @@ public class AdminHomeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //PRG realisation
         response.sendRedirect("/app/admin/admin_home.jsp");
     }
 }

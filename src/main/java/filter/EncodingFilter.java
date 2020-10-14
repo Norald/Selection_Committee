@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * Encoding filter. Set base encoding UTF-8.
+ * @author Vladislav Prokopenko
+ */
 @WebFilter(filterName = "EncodingFilter", urlPatterns = "/*", initParams = @WebInitParam(name = "encoding", value = "UTF-8"))
 public class EncodingFilter implements Filter {
     private String encoding;

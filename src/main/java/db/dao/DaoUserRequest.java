@@ -1,5 +1,9 @@
 package db.dao;
 
+/**
+ * Class with users SQL requests
+ * @author Vladislav Prokopenko
+ */
 public class DaoUserRequest {
 
     public static final String GET_ALL_USER_ADMISSION = "SELECT a.date, f.name FROM admission a INNER JOIN faculty f ON a.faculty_id = f.id INNER JOIN user u ON u.id = a.user_id WHERE u.email = (?)";
@@ -48,8 +52,12 @@ public class DaoUserRequest {
 
 
     public static final String SELECT_ALL_USERS_ADMISSIONS_FOR_FACULTY = "SELECT * FROM admission WHERE faculty_id = (?) AND date BETWEEN (?) AND CURDATE();";
-    public static final String GET_USER_ADMISSION_RESULTS_BY_ID_FACULTY_ID = "SELECT fullName, idn, totalResult, certificate_point, is_approved FROM" +
-            "((SELECT CONCAT(surname,' ', name, ' ', patronymic) as fullName FROM user_details WHERE user_id = (?) )AS fullName" +
+    public static final String SELECT_ALL_APPLIED_USERS_ADMISSIONS_FOR_FACULTY = "SELECT * FROM admission WHERE faculty_id = (?) AND is_approved = '1' AND date BETWEEN (?) AND CURDATE();";
+
+    public static final String GET_USER_ADMISSION_RESULTS_BY_ID_FACULTY_ID = "SELECT id, fullName, idn, totalResult, certificate_point, is_approved FROM" +
+            "((SELECT id as id FROM admission WHERE user_id =(?) AND faculty_id = (?) )AS id" +
+            "," +
+            "(SELECT CONCAT(surname,' ', name, ' ', patronymic) as fullName FROM user_details WHERE user_id = (?) )AS fullName" +
             "," +
             "(SELECT idn as idn FROM user WHERE id =(?) ) AS idn" +
             "," +
@@ -59,8 +67,10 @@ public class DaoUserRequest {
             "," +
             "(SELECT is_approved AS is_approved FROM admission WHERE user_id =(?) AND faculty_id = (?)) AS is_approved)";
 
-    public static final String GET_USER_ADMISSION_RESULTS_BY_ID_FACULTY_ID_UA = "SELECT fullName, idn, totalResult, certificate_point, is_approved FROM" +
-            "((SELECT CONCAT(surname_ua,' ', name_ua, ' ', patronymic_ua) as fullName FROM user_details WHERE user_id = (?) )AS fullName" +
+    public static final String GET_USER_ADMISSION_RESULTS_BY_ID_FACULTY_ID_UA = "SELECT id, fullName, idn, totalResult, certificate_point, is_approved FROM" +
+            "((SELECT id as id FROM admission WHERE user_id =(?) AND faculty_id = (?) )AS id" +
+            "," +
+            "(SELECT CONCAT(surname_ua,' ', name_ua, ' ', patronymic_ua) as fullName FROM user_details WHERE user_id = (?) )AS fullName" +
             "," +
             "(SELECT idn as idn FROM user WHERE id =(?) ) AS idn" +
             "," +
@@ -69,5 +79,31 @@ public class DaoUserRequest {
             "(SELECT SUM(result) as totalResult FROM users_results WHERE user_id =(?) AND subject_exam_id IN(SELECT subject_exam_id FROM faculty_exam_demends WHERE faculty_id = (?))) AS totalResult" +
             "," +
             "(SELECT is_approved AS is_approved FROM admission WHERE user_id =(?) AND faculty_id = (?)) AS is_approved)";
+
+    public static final String GET_USER_ADMISSION_RESULTS_BY_ID_FACULTY_ID_APPROVED = "SELECT id, fullName, idn, totalResult, certificate_point, is_approved FROM" +
+            "((SELECT id as id FROM admission WHERE user_id =(?) AND faculty_id = (?) )AS id" +
+            "," +
+            "(SELECT CONCAT(surname,' ', name, ' ', patronymic) as fullName FROM user_details WHERE user_id = (?) )AS fullName" +
+            "," +
+            "(SELECT idn as idn FROM user WHERE id =(?) ) AS idn" +
+            "," +
+            "(SELECT average_certificate_point as certificate_point FROM user_details WHERE user_id =(?) )AS certificate_point" +
+            "," +
+            "(SELECT SUM(result) as totalResult FROM users_results WHERE user_id =(?) AND subject_exam_id IN(SELECT subject_exam_id FROM faculty_exam_demends WHERE faculty_id = (?))) AS totalResult" +
+            "," +
+            "(SELECT is_approved AS is_approved FROM admission WHERE user_id =(?) AND faculty_id = (?)) AS is_approved) WHERE is_approved=1";
+
+    public static final String GET_USER_ADMISSION_RESULTS_BY_ID_FACULTY_ID_APPROVED_UA = "SELECT id, fullName, idn, totalResult, certificate_point, is_approved FROM" +
+            "((SELECT id as id FROM admission WHERE user_id =(?) AND faculty_id = (?) )AS id" +
+            "," +
+            "(SELECT CONCAT(surname_ua,' ', name_ua, ' ', patronymic_ua) as fullName FROM user_details WHERE user_id = (?) )AS fullName" +
+            "," +
+            "(SELECT idn as idn FROM user WHERE id =(?) ) AS idn" +
+            "," +
+            "(SELECT average_certificate_point as certificate_point FROM user_details WHERE user_id =(?) )AS certificate_point" +
+            "," +
+            "(SELECT SUM(result) as totalResult FROM users_results WHERE user_id =(?) AND subject_exam_id IN(SELECT subject_exam_id FROM faculty_exam_demends WHERE faculty_id = (?))) AS totalResult" +
+            "," +
+            "(SELECT is_approved AS is_approved FROM admission WHERE user_id =(?) AND faculty_id = (?)) AS is_approved)  WHERE is_approved=1";
 
 }

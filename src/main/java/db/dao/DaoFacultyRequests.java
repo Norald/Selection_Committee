@@ -1,5 +1,8 @@
 package db.dao;
-
+/**
+ * Class with faculties SQL requests
+ * @author Vladislav Prokopenko
+ */
 public class DaoFacultyRequests {
     public static final String GET_ALL_FACULTIES = "SELECT * FROM faculty";
     public static final String GET_FACULTY_BY_ID = " SELECT * FROM faculty WHERE id = (?)";
@@ -16,15 +19,12 @@ public class DaoFacultyRequests {
     public static final String ADD_SUBJECT = "INSERT INTO subject_exam(name,description, name_ua, description_ua) VALUES (?, ?, ?, ?)";
     public static final String DELETE_SUBJECT_BY_ID = "DELETE FROM subject_exam WHERE id = (?)";
 
-    //DELETING FACULTY
     public static final String DELETE_FACULTY_BY_ID = "DELETE FROM faculty WHERE id = (?)";
     public static final String DELETE_FACULTY_EXAM_DEMENDS_BY_FACULTY_ID = "DELETE FROM faculty_exam_demends WHERE faculty_id = (?)";
 
 
-
-
-
-    public static final String GET_ALL_FACULTIES_LIMIT_ORDER_BY_ZA = "SELECT * FROM faculty ORDER BY name LIMIT ?,?";
+    public static final String GET_ALL_FACULTIES_LIMIT_ORDER_BY_ZA = "SELECT * FROM faculty ORDER BY name DESC LIMIT ?,?";
+    public static final String GET_ALL_FACULTIES_LIMIT_ORDER_BY_AZ = "SELECT * FROM faculty ORDER BY name ASC LIMIT ?,?";
     public static final String GET_ALL_FACULTIES_LIMIT_ORDER_BY_AZ_UA = "SELECT * FROM faculty ORDER BY name_ua ASC LIMIT ?,?";
     public static final String GET_ALL_FACULTIES_LIMIT_ORDER_BY_ZA_UA = "SELECT * FROM faculty ORDER BY name_ua DESC LIMIT ?,?";
     public static final String GET_ALL_FACULTIES_LIMIT_ORDER_BY_BUDGET_AMOUNT = "SELECT * FROM faculty ORDER BY budget_amount DESC LIMIT ?,? ";
@@ -42,5 +42,7 @@ public class DaoFacultyRequests {
     public static final String GET_ALL_SUBJECT_EXAMS_WITH_LIMIT = "SELECT id, name, description FROM subject_exam LIMIT ?,?";
 
     public static final String GET_FACULTIES_BY_SUBJECT_EXAM_DEMENDS = "SELECT faculty_id FROM faculty_exam_demends WHERE subject_exam_id = (?)";
+    public static final String SET_ADMISSION_STATUS_APPROVED = "UPDATE admission SET is_approved = 1 WHERE id = (?)";
+    public static final String SET_ADMISSION_STATUS_DISAPPROVED = "UPDATE admission SET is_approved = 0 WHERE id = (?)";
 
 }

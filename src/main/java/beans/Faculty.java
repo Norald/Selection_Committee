@@ -1,17 +1,38 @@
 package beans;
 
-
+/**
+ * Class that describes faculty;
+ * @author Vladislav Prokopenko;
+ */
 public class Faculty {
+    /**
+     * ID faculty
+     */
     private int id;
+
+    /**
+     * Faculty name
+     */
     private String name;
+
+    /**
+     * Faculty description
+     */
     private String description;
 
-    //amount of budget places
+    /**
+     * Amount of budget places
+     */
     private int budgetAmount;
 
-    //amount of total places
+    /**
+     * Amount of total places
+     */
     private int totalAmount;
 
+    /**
+     * Logo url
+     */
     private String logoUrl;
 
 

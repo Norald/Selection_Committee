@@ -2,10 +2,30 @@ package beans;
 
 import java.sql.Date;
 
+/**
+ * Class that describes user result.
+ * Like exam and mark, etc.
+ * @author Vladislav Prokopenko.
+ */
 public class UserResult {
+    /**
+     * User id;
+     */
     private int userId;
+
+    /**
+     * Subject exam;
+     */
     private SubjectExam subject_exam;
+
+    /**
+     * Result for exam;
+     */
     private int result;
+
+    /**
+     * Date of exam;
+     */
     private Date dateOfExam;
 
     public int getUserId() {
