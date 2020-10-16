@@ -304,13 +304,16 @@ public class UserDao {
             rs = pstmt.executeQuery();
             if (rs.next())
                 user = mapper.mapRow(rs);
+            con.commit();
             rs.close();
             pstmt.close();
         } catch (SQLException ex) {
 //            DBManager.getInstance().rollbackAndClose(con);
             LOG.error(ex.getMessage(),ex);
         } finally {
-            DBManager.getInstance().commitAndClose(con);
+            if(con!=null) {
+                DBManager.getInstance().commitAndClose(con);
+            }
         }
         return user;
     }

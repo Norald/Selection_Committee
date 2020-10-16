@@ -62,8 +62,10 @@ public class DBManager {
      */
     public void commitAndClose(Connection con) {
         try {
-            con.commit();
-            con.close();
+            if(con!=null) {
+                con.commit();
+                con.close();
+            }
         } catch (SQLException ex) {
             LOG.error(ex.getMessage(),ex);
         }
