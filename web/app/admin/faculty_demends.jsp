@@ -13,44 +13,61 @@
 <fmt:setBundle basename="resource"/>
 <html>
 <head>
-    <title>Title</title>
-</head>
+    <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
 <body>
+<%@include file="/app/jspf/navbar_admin.jspf" %>
+
 <c:set var="faculty" value="${requestScope.get(\"faculty\")}"/>
-<tr>
-    <td>${faculty.name}</td>
-    <td>${faculty.budgetAmount}</td>
-    <td>${faculty.totalAmount}</td>
-    <td>${faculty.description}</td>
-</tr>
+<h2 class="text-center text-info">${faculty.name}</h2>
 
 <br>
-<h2><fmt:message key="add.demends.to.faculty" /></h2>
+<h3 class="text-left text-info"><fmt:message key="add.demends.to.faculty" /></h3>
 
-<form action="/app/admin/faculty_demend" method="post">
-    <select name="demendSelect">
-        <c:forEach items="${requestScope.get(\"examAvailableList\")}"  var="examAv">
-            <option value="${examAv.id}">${examAv.name}</option>
-        </c:forEach>
-    </select>
-    <input type="hidden" name="idFaculty" value="${faculty.id}"/>
-    <p><input type="submit" value="<fmt:message key="button.send" />"></p>
+<form class="form-inline" action="/app/admin/faculty_demend" method="post" name="add_mark_form">
+
+    <div class="form-group mb-2">
+        <select class="form-control" name="demendSelect">
+            <c:forEach items="${requestScope.get(\"examAvailableList\")}"  var="examAv">
+                <option value="${examAv.id}">${examAv.name}</option>
+            </c:forEach>
+        </select>
+    </div>
+    <div>
+        <input type="hidden" name="idFaculty" value="${faculty.id}"/>
+    </div>
+    <button type="submit" class="btn btn-info btn-xs"><fmt:message key="marks.button.send" /></button>
 </form>
 
-<br>
 
-<c:forEach items="${requestScope.get(\"examList\")}" var="examList">
-    <tr>
-        <td>${examList.name}</td>
-        <td>${examList.description}</td>
-        <li><form method="post" action="<c:url value="/app/admin/delete_demend?idFaculty=${faculty.id}&idExam=${examList.id}"/>"><button type="submit"> <fmt:message key="marks.button.delete" /></button></form></li>
-    </tr>
-    <br>
-</c:forEach>
 
-<br>
-<a href="${pageContext.request.contextPath}/app/admin/admin_home.jsp"><fmt:message key="button.return.home.admin" /></a>
-<br>
-<a href="${pageContext.request.contextPath}/app/home.jsp"><fmt:message key="button.return.home" /></a>
+<c:if test="${not empty requestScope.get(\"examList\")}">
+    <h3 class="text-center text-info"><fmt:message key="demends.faculty" /></h3>
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <thead>
+                <tr>
+                    <th><fmt:message key="exam.name" /></th>
+                    <th><fmt:message key="faculty.description" /> </th>
+                    <th class="text-center"><fmt:message key="marks.button.delete" /></th>
+                </tr>
+                </thead>
+
+
+                <c:forEach items="${requestScope.get(\"examList\")}" var="examList">
+                    <tr>
+                        <td><c:out value="${examList.name}"/> </td>
+                        <td><c:out value="${examList.description}"/> </td>
+                        <td class="text-center"> <form method="post" action="<c:url value="/app/admin/delete_demend?idFaculty=${faculty.id}&idExam=${examList.id}"/>"><button type="submit" class="btn btn-info btn-xs"> <fmt:message key="home.button.delete" /> </button></form></td>
+
+                    </tr>
+                    <br>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+</c:if>
+
+
 </body>
 </html>

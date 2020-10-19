@@ -24,7 +24,6 @@
 
 
 
-<%--<h2><fmt:message key="home.hello"/>, <c:out value='${sessionScope.get("email")}'/></h2>--%>
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">

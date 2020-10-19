@@ -13,21 +13,14 @@
 <fmt:setBundle basename="resource"/>
 <html>
 <head>
-    <title>Title</title>
+    <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
+
 </head>
 <body>
-<h3><fmt:message key="home.admin"/></h3>
+<%@include file="/app/jspf/navbar_admin.jspf" %>
 
+<h3 class="text-center text-info"><fmt:message key="home.admin"/></h3>
 
-<li><form method="post" action="/app/admin/all_faculties"><button type="submit"> <fmt:message key="admin.all.faculties" /></button></form></li>
-<li><form method="post" action="/app/admin/subject_exams"><button type="submit"> <fmt:message key="admin.all.subjects" /></button></form></li>
-<li><form method="post" action="/app/admin/users"><button type="submit"> <fmt:message key="admin.block.user" /></button></form></li>
-<li><form method="post" action="/app/admin/generation_statements"><button type="submit"> <fmt:message key="admin.generate.success.users.lists" /></button></form></li>
-
-
-<br>
-
-<a href="${pageContext.request.contextPath}/app/home.jsp"><fmt:message key="button.return.home" /></a>
 
 
 </body>

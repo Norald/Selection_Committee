@@ -30,32 +30,6 @@
     <div class="buttons">
         <div class="btn-group btn-group-sm" role="group" aria-label="Vertical example">
             <form action="/app/faculties" method="post" name="sort">
-
-            <%--<c:if test="${sessionScope.get(\"sort\")=='sortAZ'}">--%>
-            <%--<input type="radio" class="btn btn-info" value="sortAZ" name="sort" checked="checked"> <fmt:message key="faculties.sort.az" /> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortZA" name="sort">  <fmt:message key="faculties.sort.za"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortBudget" name="sort"> <fmt:message key="faculties.sort.budget"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortTotal" name="sort"> <fmt:message key="faculties.sort.total"/>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${sessionScope.get(\"sort\")=='sortZA'}">--%>
-            <%--<input type="radio" class="btn btn-info" value="sortAZ" name="sort"> <fmt:message key="faculties.sort.az"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortZA" name="sort" checked="checked"> <fmt:message key="faculties.sort.za"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortBudget" name="sort"> <fmt:message key="faculties.sort.budget"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortTotal" name="sort"> <fmt:message key="faculties.sort.total"/>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${sessionScope.get(\"sort\")=='sortBudget'}">--%>
-            <%--<input type="radio" class="btn btn-info" value="sortAZ" name="sort"> <fmt:message key="faculties.sort.az"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortZA" name="sort"> <fmt:message key="faculties.sort.za"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortBudget" name="sort" checked="checked"> <fmt:message key="faculties.sort.budget"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortTotal" name="sort"> <fmt:message key="faculties.sort.total"/>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${sessionScope.get(\"sort\")=='sortTotal'}">--%>
-            <%--<input type="radio" class="btn btn-info" value="sortAZ" name="sort" >  <fmt:message key="faculties.sort.az"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortZA" name="sort"> <fmt:message key="faculties.sort.za"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortBudget" name="sort"> <fmt:message key="faculties.sort.budget"/> <br />--%>
-            <%--<input type="radio" class="btn btn-info" value="sortTotal" name="sort" checked="checked"> <fmt:message key="faculties.sort.total"/>--%>
-        <%--</c:if>--%>
-    <%--<p><input type="submit" value="<fmt:message key="marks.button.send" />"></p>--%>
                 <button type="submit" class="btn btn-info" value="sortAZ" name="sort"><fmt:message key="faculties.sort.az" /></button>
                 <button type="submit"  class="btn btn-info" value="sortZA" name="sort"><fmt:message key="faculties.sort.za"/></button>
                 <button type="submit"  class="btn btn-info" value="sortBudget" name="sort"><fmt:message key="faculties.sort.budget"/></button>
@@ -66,24 +40,10 @@
 </div>
 
 
-<%--<h2><fmt:message key="faculties.list" /></h2>--%>
-
-<%--<c:forEach items="${requestScope.get(\"facultiesList\")}" var="faculty">--%>
-    <%--<tr>--%>
-        <%--<td>${faculty.name}</td>--%>
-        <%--<td>${faculty.budgetAmount}</td>--%>
-        <%--<td>${faculty.totalAmount}</td>--%>
-        <%--<li><form method="post" action="<c:url value="/app/faculty?id=${faculty.id}"/>"><button type="submit"> <fmt:message key="faculties.button.send.admission" /></button></form></li>--%>
-        <%--&lt;%&ndash;<td><a href="app/faculty?id=${faculty.id}>Send admission!</a></td>&ndash;%&gt;--%>
-    <%--</tr>--%>
-    <%--<br>--%>
-<%--</c:forEach>--%>
-
 
 <c:forEach items="${requestScope.get(\"facultiesList\")}" var="faculty">
 <div class="container-fluid" >
     <div class="col-xs-12 full-width">
-        <!-- First product box start here-->
         <div class="prod-info-main prod-wrap clearfix">
             <div class="row">
                 <div class="col-md-5 col-sm-12 col-xs-12">

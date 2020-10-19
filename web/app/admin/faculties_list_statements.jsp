@@ -13,24 +13,42 @@
 <fmt:setBundle basename="resource"/><html>
 <head>
     <link rel="stylesheet" href="/app/css/pagination.css">
+    <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
 </head>
 <body>
+<%@include file="/app/jspf/navbar_admin.jspf" %>
 
-<h2><fmt:message key="faculties.list" /></h2>
 
-<c:forEach items="${requestScope.get(\"facultiesList\")}" var="faculty">
-    <form action="/app/admin/generate_statement" accept-charset="UTF-8" method="post">
-        <tr>
-            <td>${faculty.name}</td>
-            <td>${faculty.budgetAmount}</td>
-            <td>${faculty.totalAmount}</td>
-        </tr>
-        <p><input name="id" type="number" hidden="hidden" value="${faculty.id}" checked="checked"/></p>
-        <p><input name="date" type="date" required="required"/></p>
-        <p><input type="submit" value="<fmt:message key="button.send" />"></p>
-    </form>
-    <br>
-</c:forEach>
+<c:if test="${not empty requestScope.get(\"facultiesList\")}">
+    <h3 class="text-center text-info"><fmt:message key="faculties.list" /></h3>
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <thead>
+                <tr>
+                    <th><fmt:message key="home.faculty.name" /></th>
+                    <th><fmt:message key="budget.places" /> </th>
+                    <th><fmt:message key="total.places" /> </th>
+                    <th class="text-center"><fmt:message key="marks.button.send" /></th>
+                </tr>
+                </thead>
+                <c:forEach var="faculty" items="${requestScope.get(\"facultiesList\")}">
+
+                    <tr>
+                        <td>${faculty.name}</td>
+                        <td>${faculty.budgetAmount}</td>
+                        <td>${faculty.totalAmount}</td>
+                        <td class="text-center">  <form method="post" action="/app/admin/generate_statement">
+                            <input name="date" type="date" required="required"/>
+                            <input name="id" type="number" hidden="hidden" value="${faculty.id}" checked="checked"/>
+                            <button type="submit" class="btn btn-info btn-xs"> <fmt:message key="button.send" /></button>
+                        </form>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+</c:if>
 
 
 
@@ -49,11 +67,6 @@
     </c:forEach>
 </div>
 
-
-<br>
-<a href="${pageContext.request.contextPath}/app/admin/admin_home.jsp"><fmt:message key="button.return.home.admin" /></a>
-<br>
-<a href="${pageContext.request.contextPath}/app/home.jsp"><fmt:message key="button.return.home" /></a>
 
 
 </body>

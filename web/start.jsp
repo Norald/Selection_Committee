@@ -10,9 +10,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
 
-<%--sessionScope.get("email")--%>
-<%--<fmt:setLocale value="${sessionScope.lang}"/>--%>
-<%--<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : 'uk'}" scope="session" />--%>
+
 
 <c:set var="language" value="${not empty sessionScope.get(\"language\") ? sessionScope.get(\"language\") : not empty sessionScope.get(\"language\") ? sessionScope.get(\"language\") : 'uk'}" scope="session" />
 <fmt:setLocale value="${language}" />
@@ -46,31 +44,8 @@
 </head>
 <body>
 
-<%--<div id="login">--%>
-<%--<form action="/login" method="post">--%>
-  <%--<div class="form-group">--%>
-    <%--<label class="text-center"><fmt:message key="start.text.email" /></label>--%>
-    <%--<input name="login" placeholder="<fmt:message key="start.text.email" />" type="email" class="form-control"  required="required">--%>
-
-    <%--&lt;%&ndash;<p><input name="login" type="email" placeholder="<fmt:message key="start.text.email" />" required="required"> </p>&ndash;%&gt;--%>
-   <%--</div>--%>
-  <%--<div class="form-group">--%>
-    <%--<label class="text-center"><fmt:message key="start.text.password" /></label>--%>
-    <%--<input   name="pass" placeholder="<fmt:message key="start.text.password" />" type="password" class="form-control"  required="required">--%>
-  <%--&lt;%&ndash;<p> <input type="password" name="pass" placeholder="<fmt:message key="start.text.password" />" required="required"></p>&ndash;%&gt;--%>
-  <%--</div>--%>
-  <%--<button type="submit" class="btn btn-primary"><fmt:message key="button.send" /></button>--%>
-<%--</form>--%>
-<%--</div>--%>
-<%--<div>--%>
-  <%--<fmt:message key="start.text.no.login" />--%>
-  <%--<a href="/registration.jsp"><fmt:message key="start.text.registration" /></a>--%>
-<%--</div>--%>
-<%--</div>--%>
-
 
 <div id="login">
-  <%--<h3 class="text-center text-white pt-5"><fmt:message key="start.text.autorisation" /></h3>--%>
   <div class="container">
     <div id="login-row" class="row justify-content-center align-items-center">
       <div id="login-column" class="col-md-6">
@@ -102,7 +77,6 @@
   </div>
 </div>
 
-<%--<%@include file="/changeLanguage.jsp" %>--%>
 
 </body>
 </html>

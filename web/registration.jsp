@@ -34,35 +34,10 @@
     </style>
 </head>
 <body>
-<%--<h2><fmt:message key="start.text.registration" /></h2>--%>
 
-
-<%--<form action="/registration" accept-charset="UTF-8" method="post">--%>
-    <%--<p><fmt:message key="registration.enter.email" /><input name="email" type="email" required="required"> </p>--%>
-    <%--<p><fmt:message key="registration.enter.password" /><input type="password" name="pass1" required="required" pattern="[0-9]{5,15}" ></p>--%>
-    <%--<p><fmt:message key="registration.enter.password.repeat" /><input type="password" name="pass2" required="required" pattern="[0-9]{5,15}" ></p>--%>
-    <%--<p><fmt:message key="registration.enter.idn" /><input type="number" name="idn" required="required" pattern="[0-9]{10}"></p>--%>
-    <%--<p><fmt:message key="registration.enter.english.name" /><input type="text" name="name" required="required" pattern="^[A-Za-z0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.english.surname" /><input type="text" name="surname" required="required" pattern="^[A-Za-z0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.english.patronymic" /><input type="text" name="patronymic" required="required" pattern="^[A-Za-z0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.english.city" /><input type="text" name="city" required="required" pattern="^[A-Za-z0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.english.region" /><input type="text" name="region" required="required" pattern="^[A-Za-z0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.english.school.name" /><input type="text" name="school_name" required="required" pattern="^[A-Za-z0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.average.certificate.point" /><input type="number" name="average_certificate_point" required="required" pattern="[0-9]{3}"></p>--%>
-    <%--<br>--%>
-    <%--<p><fmt:message key="registration.enter.ukraine.name" /><input type="text" name="name_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.ukraine.surname" /> <input type="text" name="surname_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.ukraine.patronymic" /> <input type="text" name="patronymic_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.ukraine.city" /> <input type="text" name="city_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.ukraine.region" /> <input type="text" name="region_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$"></p>--%>
-    <%--<p><fmt:message key="registration.enter.ukraine.school.name" /> <input type="text" name="school_name_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$"></p>--%>
-
-    <%--<p><input type="submit" value="<fmt:message key="button.send" />"></p>--%>
-<%--</form>--%>
 
 
 <div id="login">
-    <%--<h3 class="text-center text-white pt-5"><fmt:message key="start.text.autorisation" /></h3>--%>
     <div class="container">
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
@@ -157,10 +132,6 @@
         </div>
     </div>
 </div>
-
-
-<%--<a href="/start.jsp"><fmt:message key="registration.back" /></a>--%>
-
 
 </body>
 </html>

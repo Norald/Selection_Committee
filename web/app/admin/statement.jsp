@@ -12,47 +12,59 @@
 <fmt:setLocale value="${sessionScope.get(\"language\")}"/>
 <fmt:setBundle basename="resource"/>
 <html>
-<html>
 <head>
+    <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
+
 </head>
 <body>
+<%@include file="/app/jspf/navbar_admin.jspf" %>
+
 
 <c:if test="${empty sessionScope.get(\"results\")}">
-    <h3><fmt:message key="have.no.admissions"/></h3>
+    <h3 class="text-center text-info"><fmt:message key="have.no.admissions"/></h3>
 </c:if>
 <c:if test="${not empty sessionScope.get(\"results\")}">
-    <c:forEach items="${sessionScope.get(\"results\")}" var="result">
-        <tr>
-            <td>${result.fullname}</td>
-            <td>${result.idn}</td>
-            <td>${result.totalExamResult}</td>
-            <td>${result.certificatePoint}</td>
-            <td>${result.is_approved}</td>
-            <td>${result.totalResult}</td>
-            <c:if test="${result.is_approved eq 'false'}">
-                1234
-                <li><form method="post" action="/app/admin/confirm_user_for_statement?idAdmission=${result.id}&operation=approve"><button type="submit"> <fmt:message key="statement.report.user"/></button></form></li>
-            </c:if>
-            <c:if test="${result.is_approved eq 'true'}">
-                1234
-                <li><form method="post" action="/app/admin/confirm_user_for_statement?idAdmission=${result.id}&operation=disapprove"><button type="submit"> <fmt:message key="statement.unreport.user"/></button></form></li>
-            </c:if>
-        </tr>
-        <br>
-    </c:forEach>
-    <br>
-    <li>
-        <form method="get" action="<c:url value="/app/admin/generate_early_statement"/>">
-            <button type="submit"><fmt:message key="generate.statement"/></button>
-        </form>
-    </li>
+    <h3 class="text-center text-info"><fmt:message key="list.subject.exam" /></h3>
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <thead>
+                <tr>
+                    <th><fmt:message key="user.name" /></th>
+                    <th><fmt:message key="users.idn" /> </th>
+                    <th><fmt:message key="total.exam.result" /></th>
+                    <th><fmt:message key="certificate.point" /></th>
+                    <th><fmt:message key="total.result" /></th>
+                    <th class="text-center">Action</th>
+                </tr>
+                </thead>
+
+
+                <c:forEach items="${sessionScope.get(\"results\")}" var="result">
+                    <tr>
+                        <td>${result.fullname} </td>
+                        <td>${result.idn} </td>
+                        <td>${result.totalExamResult} </td>
+                        <td>${result.certificatePoint} </td>
+                        <td>${result.totalResult}</td>
+                        <c:if test="${result.is_approved eq 'false'}">
+                            <td class="text-center"><form method="post" action="/app/admin/confirm_user_for_statement?idAdmission=${result.id}&operation=approve"><button class="btn btn-info btn-xs" type="submit"> <fmt:message key="statement.report.user"/></button></form></td>
+                        </c:if>
+                        <c:if test="${result.is_approved eq 'true'}">
+                            <td class="text-center"><form method="post" action="/app/admin/confirm_user_for_statement?idAdmission=${result.id}&operation=disapprove"><button class="btn btn-info btn-xs" type="submit"> <fmt:message key="statement.unreport.user"/></button></form></td>
+                        </c:if>
+
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
 
     <br>
-    <li>
-        <form method="get" action="<c:url value="/app/admin/generate_late_statement"/>">
-            <button type="submit"><fmt:message key="generate.statement"/>(FINAL)</button>
-        </form>
-    </li>
+    <td class="text-center"><form method="get" action="/app/admin/generate_early_statement"><button class="btn btn-info btn-xs" type="submit"> <fmt:message key="generate.statement"/></button></form></td>
+    <br>
+    <td class="text-center"><form method="get" action="/app/admin/generate_late_statement"><button class="btn btn-info btn-xs" type="submit"> <fmt:message key="generate.statement"/> (Final)</button></form></td>
+
 </c:if>
 </body>
 </html>

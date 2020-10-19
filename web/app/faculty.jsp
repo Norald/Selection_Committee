@@ -17,6 +17,14 @@
 <head>
     <title>Title</title>
     <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
+    <style>
+        .hm-gradient {
+            background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+        }
+        .darken-grey-text {
+            color: #2E2E2E;
+        }
+    </style>
 
 </head>
 <body>
@@ -26,30 +34,36 @@
 
 
 <c:set var="faculty" value="${requestScope.get(\"faculty\")}"/>
-     <tr>
-    <td>${faculty.name}</td>
-    <td>${faculty.budgetAmount}</td>
-    <td>${faculty.totalAmount}</td>
-    <td>${faculty.description}</td>
-    </tr>
 
 
 
-<c:choose>
-    <c:when test="${requestScope.get(\"able to apply\")==false}">
-        <h2><fmt:message key="faculty.cant.admit" /></h2>>
-        <br />
-    </c:when>
-    <c:otherwise>
-        <h2><fmt:message key="faculty.can.admit" /></h2>>
-        <li><form method="post" action="<c:url value="/app/participate"/>">
-            <input type="hidden" name="faculty_id" value="${faculty.id}"/>
-            <c:out value= "${faculty.id}"></c:out>
-            <button type="submit"><fmt:message key="faculty.button.send.request" /></button>
-        </form></li>
-        <br />
-    </c:otherwise>
-</c:choose>
+
+
+<div class="jumbotron">
+
+    <h1 class="h1-reponsive mb-3 blue-text"><strong>${faculty.name}</strong></h1>
+    <p class="lead">${faculty.description}</p>
+    <hr class="my-4">
+    <p><fmt:message key="budget.places" />: ${faculty.budgetAmount}
+    </p>
+    <p><fmt:message key="total.places" />: ${faculty.totalAmount}
+    </p>
+
+
+    <c:choose>
+        <c:when test="${requestScope.get(\"able to apply\")==false}">
+            <h2 class="text-left text-info"><fmt:message key="faculty.cant.admit" /></h2>
+            <br />
+        </c:when>
+        <c:otherwise>
+            <form method="post" action="/app/participate">
+                <input type="hidden" name="faculty_id" value="${faculty.id}"/>
+                <button type="submit" class="btn btn-info" ><fmt:message key="faculty.button.send.request"></fmt:message></button>
+            </form>
+            <br />
+        </c:otherwise>
+    </c:choose>
+</div>
 
 
 </body>

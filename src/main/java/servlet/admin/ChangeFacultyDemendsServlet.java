@@ -31,29 +31,36 @@ public class ChangeFacultyDemendsServlet extends HttpServlet {
         ResourceBundle rb = ResourceBundle.getBundle("resource", new Locale(locale));
 
 
-        if(request.getParameter("id")==null){
-            LOG.warn("Empty id");
-            request.setAttribute("error", rb.getString("error.empty.id"));
-            request.getRequestDispatcher("/error.jsp")
-                    .forward(request, response);
-        }else{
-            String idFaculty = request.getParameter("id");
+        if(request.getSession().getAttribute("id")!=null||request.getParameter("id")!=null){
+            String idFaculty;
+            if(request.getSession().getAttribute("id")!=null) {
+                 idFaculty = (String) (request.getSession().getAttribute("id"));
+            }else{
+                 idFaculty = request.getParameter("id");
+            }
             FacultyDao facultyDao = new FacultyDao();
             List<SubjectExam> examList = facultyDao.getFacultyDemendsWithName(idFaculty, locale);
             List<SubjectExam> examFullList = facultyDao.getAllSubjectExams(locale);
             Faculty faculty = facultyDao.findFacultyById(idFaculty, locale);
             examFullList.removeAll(examList);
+            request.getSession().removeAttribute("id");
+
             request.setAttribute("faculty", faculty);
             request.setAttribute("examList", examList);
             request.setAttribute("examAvailableList", examFullList);
             request.getRequestDispatcher("/app/admin/faculty_demends.jsp")
+                    .forward(request, response);
+        }else{
+            LOG.warn("Empty id");
+            request.setAttribute("error", rb.getString("error.empty.id"));
+            request.getRequestDispatcher("/error.jsp")
                     .forward(request, response);
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //PRG realisation
-        response.sendRedirect("/app/admin/faculty_demends.jsp");
-
+//        response.sendRedirect("/app/admin/faculty_demends.jsp");
+        doPost(request,response);
     }
 }

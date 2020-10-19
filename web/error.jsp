@@ -122,7 +122,6 @@
     </style>
 </head>
 <body>
-<%--<h2><c:out value='${requestScope.get("error")}'/></h2>--%>
 
 <div class="page-404">
     <div class="outer">

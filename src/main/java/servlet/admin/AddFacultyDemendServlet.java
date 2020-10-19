@@ -30,7 +30,7 @@ public class AddFacultyDemendServlet extends HttpServlet {
         //getting locale for errors
         ResourceBundle rb = ResourceBundle.getBundle("resource", new Locale(locale));
 
-        if(request.getParameter("idFaculty")==null||request.getParameter("demendSelect")==null){
+        if(request.getParameter("idFaculty")==null&&request.getParameter("idFaculty")==null){
             LOG.warn("Empty faculty id or exam id");
             request.setAttribute("error", rb.getString("error.empty.faculty.or.exam.id"));
             request.getRequestDispatcher("/error.jsp")
@@ -47,12 +47,14 @@ public class AddFacultyDemendServlet extends HttpServlet {
             List<SubjectExam> examList = facultyDao.getFacultyDemendsWithName(facultyId, locale);
             List<SubjectExam> examFullList = facultyDao.getAllSubjectExams(locale);
             examFullList.removeAll(examList);
-            doGet(request,response);
+            System.out.println(facultyId);
+            request.getSession().setAttribute("id",facultyId);
+            response.sendRedirect("/app/admin/faculty_admissions");
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //PRG realisation
-        response.sendRedirect("/app/admin/faculty_demends.jsp");
+        response.sendRedirect("/app/admin/faculty_admissions");
     }
 }

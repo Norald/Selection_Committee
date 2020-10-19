@@ -20,7 +20,7 @@
     <br/>
     <a href="/app/download_statement?name=${file.name}" ><strong> <c:out value="${file.name}" /></strong></a>
     <c:if test="${sessionScope.get(\"role\")== 'ADMIN'}">
-        <li><form method="post" action="/app/admin/delete_statement?name=${file.name}"><button type="submit"> <fmt:message key="home.button.delete" /></button></form></li>
+        <form method="post" action="/app/admin/delete_statement?name=${file.name}"><button type="submit"> <fmt:message key="home.button.delete" /></button></form>
     </c:if>
 </c:forEach>
 

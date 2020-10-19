@@ -23,16 +23,7 @@
 <c:if test="${empty sessionScope.get(\"admissions map\")}">
     <h3 class="text-center text-info"><fmt:message key="home.have.no.admissions" /></h3>
 </c:if>
-<%--<c:if test="${not empty sessionScope.get(\"admissions map\")}">--%>
-    <%--<h3><fmt:message key="home.your.admissions" /></h3>--%>
-    <%--<c:forEach var="admission" items="${sessionScope.get(\"admissions map\")}">--%>
-        <%--<h4><fmt:message key="home.faculty.name" /><c:out value="${admission.key}"/> <fmt:message key="home.date.admission" /> <c:out value="${admission.value}"/></h4>--%>
-        <%--<li><form method="post" action="<c:url value="/app/admission_del"/>">--%>
-            <%--<input type="hidden" name="faculty_name" value="${admission.key}"/>--%>
-            <%--<button type="submit"> <fmt:message key="home.button.delete" /> </button></form></li>--%>
-        <%--<br>--%>
-    <%--</c:forEach>--%>
-<%--</c:if>--%>
+
 
 <c:if test="${not empty sessionScope.get(\"admissions map\")}">
 <h3 class="text-center text-info"><fmt:message key="home.your.admissions" /></h3>

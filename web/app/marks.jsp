@@ -51,11 +51,7 @@
 <h3 class="text-left text-info"><fmt:message key="adding.mark" /></h3>
 
     <form class="form-inline" action="/app/add_mark" method="post" name="add_mark_form">
-        <%--<select name="marksSelect">--%>
-            <%--<c:forEach items="${requestScope.get(\"exams\")}"  var="exam">--%>
-        <%--<option value="${exam.id}">${exam.name}</option>--%>
-            <%--</c:forEach>--%>
-        <%--</select>--%>
+
 
                 <div class="form-group mb-2">
                     <select class="form-control" name="marksSelect">
@@ -70,15 +66,6 @@
             <button type="submit" class="btn btn-info btn-xs"><fmt:message key="marks.button.send" /></button>
     </form>
 
-<%--<form action="/app/add_mark" method="post" name="add_mark_form">--%>
-    <%--<select name="marksSelect">--%>
-        <%--<c:forEach items="${requestScope.get(\"exams\")}"  var="exam">--%>
-            <%--<option value="${exam.id}">${exam.name}</option>--%>
-        <%--</c:forEach>--%>
-    <%--</select>--%>
-    <%--<p> <input type="number" name="mark" required="required" pattern="[0-9]{3}"></p>--%>
-    <%--<p><input type="submit" value="<fmt:message key="marks.button.send" />"></p>--%>
-<%--</form>--%>
 
 
 </body>

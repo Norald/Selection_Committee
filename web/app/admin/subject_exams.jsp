@@ -13,30 +13,76 @@
 <fmt:setBundle basename="resource"/><html>
 <head>
     <link rel="stylesheet" href="/app/css/pagination.css">
+    <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
+
 </head>
 <body>
-
-<h2><fmt:message key="add.subject.exam" /></h2>
-<form action="/app/admin/add_subject_exam" accept-charset="UTF-8" method="post">
-    <fmt:message key="home.faculty.name" /><input name="name" type="text" required="required"> </p>
-    <fmt:message key="faculty.description" /><input type="text" name="description" required="required" ></p>
-    <fmt:message key="home.faculty.name" />(UA)<input type="text" name="name_ua" required="required" ></p>
-    <fmt:message key="faculty.description" />(UA)<input type="text" name="description_ua" required="required" ></p>
-   <p><input type="submit" value="<fmt:message key="button.send" />"></p>
-</form>
-<br>
+<%@include file="/app/jspf/navbar_admin.jspf" %>
 
 
-<h2><fmt:message key="list.subject.exam" /></h2>
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="form" action="/app/admin/add_subject_exam" method="post" accept-charset="UTF-8">
+                        <h3 class="text-center text-info"><fmt:message key="add.subject.exam" /></h3>
+                        <div class="form-group">
+                            <label for="name" class="text-info"><fmt:message key="exam.name" /></label><br>
+                            <input id= "name" name="name" type="text" required="required" class="form-control" pattern="^[A-Za-z0-9]+$">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="text-info"><fmt:message key="exam.description" /></label><br>
+                            <input id="description" type="text" name="description" required="required"  class="form-control" pattern="^[A-Za-z0-9]+$">
+                        </div>
+                        <div class="form-group">
+                            <label for="name_ua" class="text-info"><fmt:message key="exam.name" />(UA)</label><br>
+                            <input id = "name_ua" type="text" name="name_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="description_ua" class="text-info"><fmt:message key="exam.description" />(UA)</label><br>
+                            <input id = "description_ua" type="text" name="description_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$" class="form-control">
+                        </div>
 
-<c:forEach items="${requestScope.get(\"subjectExams\")}" var="subjectExam">
-    <tr>
-        <td>${subjectExam.name}</td>
-        <td>${subjectExam.description}</td>
-        <li><form method="post" action="<c:url value="/app/admin/delete_subject_exam?id=${subjectExam.id}"/>"><button type="submit"> <fmt:message key="marks.button.delete" /></button></form></li>
-    </tr>
-    <br>
-</c:forEach>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="<fmt:message key="button.send" />">
+                        </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<c:if test="${not empty requestScope.get(\"subjectExams\")}">
+    <h3 class="text-center text-info"><fmt:message key="list.subject.exam" /></h3>
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <thead>
+                <tr>
+                    <th><fmt:message key="exam.name" /></th>
+                    <th><fmt:message key="faculty.description" /> </th>
+                    <th class="text-center"><fmt:message key="marks.button.delete" /></th>
+                </tr>
+                </thead>
+
+
+                <c:forEach items="${requestScope.get(\"subjectExams\")}" var="subjectExam">
+                    <tr>
+                        <td><c:out value="${subjectExam.name}"/> </td>
+                        <td><c:out value="${subjectExam.description}"/> </td>
+                        <td class="text-center"> <form method="post" action="<c:url value="/app/admin/delete_subject_exam?id=${subjectExam.id}"/>"><button type="submit" class="btn btn-info btn-xs"> <fmt:message key="home.button.delete" /> </button></form></td>
+
+                    </tr>
+                    <br>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+</c:if>
 
 <br>
 <div class="pagination">
@@ -51,9 +97,5 @@
     </c:forEach>
 </div>
 
-<br>
-<a href="${pageContext.request.contextPath}/app/admin/admin_home.jsp"><fmt:message key="button.return.home.admin" /></a>
-<br>
-<a href="${pageContext.request.contextPath}/app/home.jsp"><fmt:message key="button.return.home" /></a>
 </body>
 </html>

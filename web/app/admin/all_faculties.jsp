@@ -12,37 +12,89 @@
 <html>
 <head>
     <link rel="stylesheet" href="/app/css/pagination.css">
+    <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
+
 </head>
 <body>
-
-<h2><fmt:message key="faculty.add" /></h2>
-<form action="/app/admin/add_faculty" accept-charset="UTF-8" method="post">
-    <fmt:message key="home.faculty.name" /><input name="name" type="text" required="required"> </p>
-    <fmt:message key="faculty.description" /><input type="text" name="description" required="required" ></p>
-    <fmt:message key="home.faculty.name" />(UA)<input type="text" name="name_ua" required="required" ></p>
-    <fmt:message key="faculty.description" />(UA)<input type="text" name="description_ua" required="required" ></p>
-    <fmt:message key="faculty.budget.amount" /><input type="number" name="budget_amount" required="required" pattern="[0-9]{3}"></p>
-    <fmt:message key="faculty.total.amount" /><input type="number" name="total_amount" required="required" pattern="[0-9]{3}"></p>
-    <p><input type="submit" value="<fmt:message key="button.send" />"></p>
-</form>
-<br>
+<%@include file="/app/jspf/navbar_admin.jspf" %>
 
 
-<h2><fmt:message key="faculties.list" /></h2>
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="form" action="/app/admin/add_faculty" method="post" accept-charset="UTF-8">
+                        <h3 class="text-center text-info"><fmt:message key="faculty.add" /></h3>
+                        <div class="form-group">
+                            <label for="name" class="text-info"><fmt:message key="home.faculty.name" /></label><br>
+                            <input id= "name" name="name" type="text" required="required" class="form-control" pattern="^[A-Za-z0-9]+$">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="text-info"><fmt:message key="faculty.description" /></label><br>
+                            <input id="description" type="text" name="description" required="required"  class="form-control" pattern="^[A-Za-z0-9]+$">
+                        </div>
+                        <div class="form-group">
+                            <label for="name_ua" class="text-info"><fmt:message key="home.faculty.name" />(UA)</label><br>
+                            <input id = "name_ua" type="text" name="name_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="description_ua" class="text-info"><fmt:message key="faculty.description" />(UA)</label><br>
+                            <input id = "description_ua" type="text" name="description_ua" required="required" pattern="^[А-Яа-яҐЄІЇіїєґ0-9]+$" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="budget_amount" class="text-info"><fmt:message key="faculty.budget.amount" /></label><br>
+                            <input id="budget_amount" type="number" name="budget_amount" required="required" pattern="[0-9]{3}" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="total_amount" class="text-info"><fmt:message key="faculty.total.amount" /></label><br>
+                            <input id="total_amount" type="number" name="total_amount" required="required" pattern="[0-9]{3}" class="form-control">
+                        </div>
 
-<c:forEach items="${requestScope.get(\"facultiesList\")}" var="faculty">
-    <tr>
-        <td>${faculty.name}</td>
-        <td>${faculty.budgetAmount}</td>
-        <td>${faculty.totalAmount}</td>
-        <li><form method="post" action="<c:url value="/app/admin/delete_faculty?id=${faculty.id}"/>"><button type="submit"> <fmt:message key="marks.button.delete" /></button></form></li>
-        <li><form method="post" action="<c:url value="/app/admin/faculty_admissions?id=${faculty.id}"/>"><button type="submit"> <fmt:message key="button.change.admissions" /></button></form></li>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="<fmt:message key="button.send" />">
+                        </div>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <%--<td><a href="app/faculty?id=${faculty.id}>Send admission!</a></td>--%>
-    </tr>
-    <br>
-</c:forEach>
 
+
+<c:if test="${not empty requestScope.get(\"facultiesList\")}">
+    <h3 class="text-center text-info"><fmt:message key="faculties.list" /></h3>
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <thead>
+                <tr>
+                    <th><fmt:message key="home.faculty.name" /></th>
+                    <th><fmt:message key="faculty.description" /> </th>
+                    <th><fmt:message key="budget.places" /> </th>
+                    <th><fmt:message key="total.places" /> </th>
+                    <th class="text-center"><fmt:message key="home.button.delete" /></th>
+                    <th class="text-center"><fmt:message key="button.change.admissions" /></th>
+                </tr>
+                </thead>
+                <c:forEach var="faculty" items="${requestScope.get(\"facultiesList\")}">
+
+                    <tr>
+                        <td>${faculty.name}</td>
+                        <td>${faculty.description}</td>
+                        <td>${faculty.budgetAmount}</td>
+                        <td>${faculty.totalAmount}</td>
+                        <td class="text-center">  <form method="post" action="/app/admin/delete_faculty?id=${faculty.id}"><button type="submit" class="btn btn-info btn-xs"> <fmt:message key="home.button.delete" /></button></form>
+                        <td class="text-center">  <form method="post" action="/app/admin/faculty_admissions?id=${faculty.id}"><button type="submit" class="btn btn-info btn-xs">  <fmt:message key="button.change.admissions" /></button></form>
+
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+</c:if>
 
 
 <br>
@@ -61,10 +113,6 @@
 </div>
 
 
-<br>
-<a href="${pageContext.request.contextPath}/app/admin/admin_home.jsp"><fmt:message key="button.return.home.admin" /></a>
-<br>
-<a href="${pageContext.request.contextPath}/app/home.jsp"><fmt:message key="button.return.home" /></a>
 
 
 </body>

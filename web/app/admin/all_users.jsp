@@ -14,30 +14,53 @@
 <html>
 <head>
     <link rel="stylesheet" href="/app/css/pagination.css">
+    <%@include file="/app/jspf/scriptsBootstrap.jspf" %>
+
 </head>
 <body>
-<h2><fmt:message key="users.list" /></h2>
+<%@include file="/app/jspf/navbar_admin.jspf" %>
 
-<c:forEach items="${requestScope.get(\"usersList\")}" var="users">
-    <tr>
-        <fmt:message key="users.email" /> <td>${users.email}</td>
-        <fmt:message key="users.idn" /> <td>${users.idn}</td>
-        <fmt:message key="users.password" /> <td>${users.password}</td>
-        <c:if test="${users.blocked == '0'}">
-            <form method="post" action="<c:url value="/app/admin/block_user?id=${users.id}&operation=block"/>"><button type="submit"> <fmt:message key="button.block" /> </button></form>
-        </c:if>
-        <c:if test="${users.blocked ne '0'}">
-            <form method="post" action="<c:url value="/app/admin/block_user?id=${users.id}&operation=unblock"/>"><button type="submit"> <fmt:message key="button.unblock" /> </button></form>
-        </c:if>
-        <c:if test="${users.user_role_id == '2'}">
-            <form method="post" action="<c:url value="/app/admin/user_set_role?id=${users.id}&operation=makeUser"/>"><button type="submit"> <fmt:message key="button.set.user.role" /> </button></form>
-        </c:if>
-        <c:if test="${users.user_role_id ne '2'}">
-            <form method="post" action="<c:url value="/app/admin/user_set_role?id=${users.id}&operation=makeAdmin"/>"><button type="submit"> <fmt:message key="button.set.admin.role" /> </button></form>
-        </c:if>
-    </tr>
-    <br>
-</c:forEach>
+
+
+<c:if test="${not empty requestScope.get(\"usersList\")}">
+    <h3 class="text-center text-info"><fmt:message key="users.list" /></h3>
+    <div class="container-fluid">
+        <div class="row custyle">
+            <table class="table table-striped custab">
+                <thead>
+                <tr>
+                    <th><fmt:message key="users.email" /></th>
+                    <th><fmt:message key="users.idn" /> </th>
+                    <th class="text-center">BLOCK</th>
+                    <th class="text-center">CHANGE ROLE</th>
+                </tr>
+                </thead>
+
+
+                <c:forEach items="${requestScope.get(\"usersList\")}" var="users">
+                    <tr>
+                        <td><c:out value="${users.email}"/> </td>
+                        <td><c:out value="${users.idn}"/> </td>
+                        <c:if test="${users.blocked == '0'}">
+                            <td class="text-center"> <form method="post" action="<c:url value="/app/admin/block_user?id=${users.id}&operation=block"/>"><button type="submit" class="btn btn-info btn-xs"> <fmt:message key="button.block" /> </button></form></td>
+                        </c:if>
+                        <c:if test="${users.blocked ne '0'}">
+                            <td class="text-center">  <form method="post" action="<c:url value="/app/admin/block_user?id=${users.id}&operation=unblock"/>"><button type="submit" class="btn btn-info btn-xs"> <fmt:message key="button.unblock" /> </button></form></td>
+                        </c:if>
+                        <c:if test="${users.user_role_id == '2'}">
+                            <td class="text-center"> <form method="post" action="<c:url value="/app/admin/user_set_role?id=${users.id}&operation=makeUser"/>"><button type="submit" class="btn btn-info btn-xs"> <fmt:message key="button.set.user.role" /> </button></form></td>
+                        </c:if>
+                        <c:if test="${users.user_role_id ne '2'}">
+                            <td class="text-center"> <form method="post" action="<c:url value="/app/admin/user_set_role?id=${users.id}&operation=makeAdmin"/>"><button type="submit" class="btn btn-info btn-xs">  <fmt:message key="button.set.admin.role" /> </button></form></td>
+                        </c:if>
+                    </tr>
+                    <br>
+                </c:forEach>
+            </table>
+        </div>
+    </div>
+</c:if>
+
 
 <br>
 <div class="pagination">
@@ -52,9 +75,5 @@
     </c:forEach>
 </div>
 
-<br>
-<a href="${pageContext.request.contextPath}/app/admin/admin_home.jsp"><fmt:message key="button.return.home.admin" /></a>
-<br>
-<a href="${pageContext.request.contextPath}/app/home.jsp"><fmt:message key="button.return.home" /></a>
 </body>
 </html>
