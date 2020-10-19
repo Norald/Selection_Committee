@@ -11,3 +11,15 @@
 - додавання результатів абітурієнтів до Відомості;
 - фіналізації Відомості на зарахування.
 Після фіналізації відомості система підраховує суму балів і визначає абітурієнтів, зарахованих до навчального закладу на бюджетні місця, на контракт. (За бажанням додати оповіщення про результат зарахування на певну форму навчання, а також не зарахування за допомогою відправки email абітурієнтові).
+
+Progress: Business logic 100%, UI 100% (Simple Bootstrap)
+Application architecture:  MVC 
+RDBMS: MySQL
+Database Connection Pool:Tomcat JDBC Connection Pool
+Tag libraries: jstl, tag file
+Features:
+UI localisation, DB localisation, Pagination of pages, PRG pattern, Custom Error pages, Server side validation, Doc comments.
+Features:
+Log4j, sessions, filters, listeners.
+Additional features:
+Reports in PDF, Bootstrap.
